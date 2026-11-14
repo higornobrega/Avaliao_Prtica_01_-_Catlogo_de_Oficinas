@@ -1,0 +1,83 @@
+<h1 class="mb-3">Oficinas cadastradas</h1>
+
+<!-- resumo do catálogo (sempre considera todas as oficinas) -->
+<p class="mb-3">
+    <span class="d-inline-block me-2">Total de oficinas: <strong>{{resumo.total}}</strong></span>
+    <span class="d-inline-block me-2">Abertas: <strong>{{resumo.abertas}}</strong></span>
+    <span class="d-inline-block me-2">Encerradas: <strong>{{resumo.encerradas}}</strong></span>
+    <span class="d-inline-block">Carga horária das abertas: <strong>{{resumo.carga_horaria_abertas}} h</strong></span>
+</p>
+
+<!-- opções de visualização -->
+<ul class="nav nav-pills mb-3">
+    <li class="nav-item">
+        <a class="nav-link{{#if visualizacao_todas}} active{{/if}}" href="/">Todas as Oficinas</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link{{#if visualizacao_abertas}} active{{/if}}" href="/abertas">Inscrições Abertas</a>
+    </li>
+</ul>
+
+{{#if resumo.total}}
+    {{#if oficinas.length}}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th scope="col">Título</th>
+                        <th scope="col">Carga horária</th>
+                        <th scope="col">Inscrições</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- each é como um laço for, percorrendo todas as oficinas -->
+                    {{#each oficinas}}
+                        <tr>
+                            <th scope="row">{{this.titulo}}</th>
+                            <td class="text-center">{{this.carga_horaria}} h</td>
+                            <td class="text-center">{{#if this.inscricoes_abertas}}Abertas{{else}}Encerradas{{/if}}</td>
+                            <td>
+                                <div class="d-flex justify-content-center gap-1">
+                                    <a href="/oficina/consulta/{{this.id}}" class="btn btn-primary btn-sm">Consultar</a>
+                                    <a href="/oficina/altera/{{this.id}}" class="btn btn-primary btn-sm">Editar</a>
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalExclusao{{this.id}}">Excluir</button>
+                                    {{#if this.inscricoes_abertas}}
+                                        <a href="/oficina/encerra/{{this.id}}" class="btn btn-outline-primary btn-sm">Encerrar</a>
+                                    {{else}}
+                                        <a href="/oficina/reabre/{{this.id}}" class="btn btn-outline-primary btn-sm">Reabrir</a>
+                                    {{/if}}
+                                </div>
+                            </td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- janelas modais de confirmação de exclusão (uma para cada oficina da tabela) -->
+        {{#each oficinas}}
+            <div class="modal fade" id="modalExclusao{{this.id}}" tabindex="-1" aria-labelledby="tituloModalExclusao{{this.id}}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="tituloModalExclusao{{this.id}}">Excluir oficina</h1>
+                        </div>
+                        <div class="modal-body">
+                            Confirma a exclusão de <strong>{{this.titulo}}</strong>?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="/oficina/deleta/{{this.id}}" class="btn btn-danger">Confirmar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    {{else}}
+        <p>Nenhuma oficina está com inscrições abertas.</p>
+    {{/if}}
+{{else}}
+    <p class="mb-3">Nenhuma oficina cadastrada.</p>
+    <a href="/oficina/cria" class="btn btn-primary">Cadastrar a primeira oficina</a>
+{{/if}}

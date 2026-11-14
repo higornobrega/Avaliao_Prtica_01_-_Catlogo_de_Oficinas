@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>{{titulo_pagina}}</title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="container">
+      <!-- menu superior (nav "Fill and Justify"), presente em todas as telas -->
+      <ul class="nav nav-pills nav-justified mt-3 mb-3">
+        <li class="nav-item">
+          <a class="nav-link{{#if menu_inicio}} active{{/if}}" {{#if menu_inicio}}aria-current="page"{{/if}} href="/">Início</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link{{#if menu_sobre}} active{{/if}}" {{#if menu_sobre}}aria-current="page"{{/if}} href="/sobre">Sobre</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link{{#if menu_cria}} active{{/if}}" {{#if menu_cria}}aria-current="page"{{/if}} href="/oficina/cria">Nova Oficina</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link{{#if menu_pesquisa}} active{{/if}}" {{#if menu_pesquisa}}aria-current="page"{{/if}} href="/oficina/pesquisa">Pesquisa</a>
+        </li>
+      </ul>
+
+      {{{body}}}
+    </div>
+    <script src="/javascripts/bootstrap/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

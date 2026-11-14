@@ -1,1 +1,0 @@
-# Avaliao_Prtica_01_-_Catlogo_de_Oficinas

@@ -1,0 +1,6 @@
+/* Estilos complementares ao Bootstrap */
+
+/* descrição da oficina: mantém as quebras de linha do <pre> e quebra linhas muito longas */
+pre {
+  white-space: pre-wrap;
+}
